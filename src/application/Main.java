@@ -5,25 +5,19 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import lib.DefaultManager;
+import logic.StartManager;
 import javafx.scene.Scene;
 
 import ui.GameScreen;
-import ui.GeneralScreen;
-import ui.StartScreen;
-import ui.TutorialScreen;
-
 
 public class Main extends Application {
 	
 	public static Main instance;
 	private Stage primaryStage;
-	private Scene startScene;
 	private Scene gameScene;
-	private Scene tutorialScene;
-	private StartScreen startScreen;
 	private GameScreen gameScreen;
-	private TutorialScreen tutorialScreen;
-	private GeneralScreen currentScreen;
+	private DefaultManager currentManager;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -38,28 +32,22 @@ public class Main extends Application {
 			}
 		});
 		
-		// create start scene
-		this.startScreen = new StartScreen();
-		this.startScene = new Scene(this.startScreen);
+		StartManager startManager = new StartManager();
+		currentManager = startManager;
 		
 		// create game scene
 		this.gameScreen = new GameScreen();
 		this.gameScene = new Scene(this.gameScreen);
 		
-		// create tutorial scene
-		this.tutorialScreen = new TutorialScreen();
-		this.tutorialScene = new Scene(this.tutorialScreen);
-		
-		this.currentScreen = this.startScreen;
-		
 		new AnimationTimer() {
             @Override
             public void handle(long now) {
-            	currentScreen.paintComponent();
+            	currentManager.update();
+            	gameScreen.paintComponent();
             }
         }.start();
         
-		this.primaryStage.setScene(this.startScene);
+		this.primaryStage.setScene(this.gameScene);
 		this.primaryStage.show();
 	}
 	
@@ -68,21 +56,10 @@ public class Main extends Application {
 	}
 	
 	public synchronized void changeScene(String sceneName) {
-		if(sceneName == "start") {
-			this.primaryStage.setScene(startScene);
-			this.currentScreen = this.startScreen;
-		}
-		else if(sceneName == "game") {
-			this.primaryStage.setScene(gameScene);
-			this.currentScreen = this.gameScreen;
-		}
-		else {
-			this.primaryStage.setScene(tutorialScene);
-			this.currentScreen = this.tutorialScreen;
-		}
+		//
 	}
 	
 	public void drawGameScreen(){
-		this.currentScreen.paintComponent();
+		this.gameScreen.paintComponent();
 	}
 }

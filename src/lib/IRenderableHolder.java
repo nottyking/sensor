@@ -6,9 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class IRenderableHolder {
-	private static final IRenderableHolder startScreenInstance = new IRenderableHolder();
-	private static final IRenderableHolder gameScreenInstance = new IRenderableHolder();
-	private static final IRenderableHolder tutorialScreenInstance = new IRenderableHolder();
+	private static final IRenderableHolder instance = new IRenderableHolder();
 	
 	private List<IRenderableObject> entities;
 	private Comparator<IRenderableObject> comparator;
@@ -22,16 +20,8 @@ public class IRenderableHolder {
 		};
 	}
 	
-	public static IRenderableHolder getStartScreenInstance() {
-		return startScreenInstance;
-	}
-
-	public static IRenderableHolder getGameScreenInstance() {
-		return gameScreenInstance;
-	}
-	
-	public static IRenderableHolder getTutorialScreenInstance() {
-		return tutorialScreenInstance;
+	public static IRenderableHolder getInstance() {
+		return instance;
 	}
 	
 	public void addAndSort(IRenderableObject entity) {
