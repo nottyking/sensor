@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.Random;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
@@ -32,9 +34,10 @@ public abstract class GeneralScreen extends StackPane {
 		gc.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
 		gc.fillRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
 		gc.setFill(Color.BLACK);
-		x++;
-		y++;
-		gc.fillRect(x, y, 50, 50);
+//		Random rand = new Random();
+//		int opsetX = rand.nextInt(10) - 5;
+//		int opsetY = rand.nextInt(10) - 5;
+//		gc.fillRect(x + opsetX, y + opsetY, 50, 50);
 		
 		// render 
 		for(IRenderableObject renderable: IRenderableHolder.getStartScreenInstance().getEntities()) {
